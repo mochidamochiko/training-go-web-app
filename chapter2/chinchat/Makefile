@@ -19,3 +19,6 @@ start-pg:
 #	\conninfo
 #	\l	# show databases
 #	\c chinchat
+
+start-compose:
+	docker-compose up -d

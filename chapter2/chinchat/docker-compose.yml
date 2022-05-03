@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  chinchat:
+    image: chinchat
+    container_name: chinchat
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13-buster
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ./init/:/docker-entrypoint-initdb.d

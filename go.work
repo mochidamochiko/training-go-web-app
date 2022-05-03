@@ -1,0 +1,6 @@
+go 1.18
+
+use (
+	./chapter1/first_webapp
+	./chapter2/chinchat
+)

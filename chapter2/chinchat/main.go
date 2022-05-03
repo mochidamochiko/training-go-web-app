@@ -36,6 +36,9 @@ func index(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request: %s", r.URL.Path)
 	threads, err := data.Threads()
 	if err == nil {
-		templates.ExecuteTemplate(w, "layout", threads)
+		err := templates.ExecuteTemplate(w, "layout", threads)
+		if err != nil {
+			log.Printf("template rendering error: %s", err)
+		}
 	}
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"chinchat/data"
+	"log"
 	"net/http"
 	"text/template"
 )
@@ -32,6 +33,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 	templates := template.Must(template.ParseFiles(files...))
 
+	log.Printf("Request: %s", r.URL.Path)
 	threads, err := data.Threads()
 	if err == nil {
 		templates.ExecuteTemplate(w, "layout", threads)

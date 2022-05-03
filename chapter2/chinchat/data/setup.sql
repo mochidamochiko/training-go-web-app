@@ -1,4 +1,5 @@
 -- create database chinchat;
+-- \c chinchat
 
 drop table posts;
 drop table threads;
@@ -39,3 +40,7 @@ create table posts (
   thread_id  integer references threads(id),
   created_at timestamp not null  
 );
+
+
+insert into users values(1, 'user1', 'tarotarotaro', 'taro@taro', 'passpass', '2022-05-04');
+insert into threads values(1, 'id1', 'topictopictopic', 1, '2022-05-04');

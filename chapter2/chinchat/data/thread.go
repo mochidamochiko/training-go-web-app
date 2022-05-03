@@ -43,3 +43,53 @@ func Threads() (threads []Thread, err error) {
 
 	return
 }
+
+// スレッドのリプライ数を返す
+func (thread *Thread) NumReplies() (count int) {
+	log.Printf("Pg query: Get replies count")
+	rows, err := Db.Query(
+		"SELECT count(*) from posts where thread_id = $1",
+		thread.Id,
+	)
+	if err != nil {
+		return
+	}
+
+	for rows.Next() {
+		if err = rows.Scan(&count); err != nil {
+			return
+		}
+	}
+
+	rows.Close()
+
+	return
+}
+
+// スレッドを開始したユーザ名を取得
+func (thread *Thread) User() (user User) {
+	log.Printf("Pg query: Get user name")
+
+	user = User{}
+
+	err := Db.QueryRow(
+		"SELECT id, uuid, name, email, created_at FROM users WHERE id = $1",
+		thread.UserId,
+	).Scan(
+		&user.Id,
+		&user.Uuid,
+		&user.Name,
+		&user.Email,
+		&user.CreatedAt,
+	)
+	if err != nil {
+		log.Print(err)
+	}
+
+	return
+}
+
+// CreatedAtの表示形式を変換
+func (thread *Thread) CreatedAtDate() string {
+	return thread.CreatedAt.Format("2006/01/02 15:04:05")
+}

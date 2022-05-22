@@ -16,6 +16,7 @@ jobs:
           go test -v
 
   go_build:
+    needs: go_test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

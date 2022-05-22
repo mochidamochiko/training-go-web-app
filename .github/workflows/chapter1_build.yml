@@ -1,0 +1,27 @@
+name: Chapter1 Go Build
+
+on:
+  workflow_dispatch
+
+jobs:
+  go_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: go test
+        run: |
+          cd chapter1/first_webapp
+          go vet
+          go test -v
+
+  go_build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: go build
+        run: |
+          cd chapter1/first_webapp
+          go build -v
+
